@@ -1,4 +1,3 @@
-# as_on_a_meta_level
 # Code for paper: "Algorithm Selection on a Meta Level"
 
 This repository holds the code for our paper "Algorithm Selection on a Meta Level" by Alexander Tornede, Lukas Gehring, Tanja Tornede, Marcel Wever and Eyke Hüllermeier. Regarding questions please contact alexander.tornede@upb.de .
@@ -100,15 +99,3 @@ The results obtained this way are (among others) PAR10 scores (not yet normalize
 
 ### Generating Plots
 By running the `generate_all_plots.py` file at the top level of the project, you can generate all the plots from the paper. Note that you must use the table names presented in Section 1 to plot the data.
-
-
-## 5. Generating Scenarios for a New Meta-level
-This part will most likely not be interesting for you and is only intended for developers: 
-
-### Start Experiments for Meta-level N
-1. Copy results for meta-level N-1 from the "output" folder on the server into a new subdirectory in output named "level_{N-1}".
-2. Change "data_folder" in "conf/experiment_configuration" to "data/level_N/"
-2. Change "table" in "conf/experiment_configuration" to "server_results_meta_level_N"
-3. Change level in "meta_aslib_preparation" to level N
-4. Run "meta_aslib_preparation" for meta-level N and copy the data from "data/level_N" to the server into the same directory
-5. Check tables in SQL server
