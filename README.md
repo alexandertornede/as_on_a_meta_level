@@ -47,7 +47,7 @@ You have to adapt all entries below the `[DATABASE]` tag according to your datab
 * `username`: the username the code can use to access the database
 * `password`: the password the code can use to access the database
 * `database`: the name of the database where you imported the tables
-* `table`: the name of the table, where results should be stored. This is created automatically by the code if it does not exist yet and should NOT be created manually.
+* `table`: the name of the table, where results should be stored. This is created automatically by the code if it does not exist yet and should NOT be created manually. To be able to plot the data later, you have to put the results of `sbs` and `oracle` into the table `sbs_vbs` and the results of all other approaches into the table `approach_results`.
 * `ssl`: whether ssl should be used or not
 
 Entries below the `[EXPERIMENTS]` define which experiments will be run. The configuration above will produce the main results presented in the paper.
@@ -85,7 +85,7 @@ Obviously, the code requires access to the ASLib scenarios in order to run the r
 ```
 
 
-## 5. Obtaining Evaluation Results
+## 4. Obtaining Evaluation Results
 At this point you should be good to go and can execute the experiments by running the `run.py` on the top-level of the project. Again, before executing the voting and stacking approaches, the `create_base_learner_prediction` approach must first be executed to precompute the predictions of the base learner.
 
  All results will be stored in the table given in the configuration file and has the following columns:
@@ -98,54 +98,11 @@ At this point you should be good to go and can execute the experiments by runnin
 
 The results obtained this way are (among others) PAR10 scores (not yet normalized) for the meta-AS problem. 
 
-After having generated the main results for the meta-level, you also have to generate the results for the base-level by running the code on the original ASlib scenarios. For doing so, change  the `table` name in the configuration file (in order to avoid an overwrite) to another value and the `data_folder` to the folder where you downloaded the original ASlib data to. Furthermore, in the `approaches` part of the configuration, you should replace the `sbs_with_feature_costs` simply by `sbs`. Now you have to rerun the experiments to obtain the same table structure as described above.
-
-At this point, you should have both the results for the base-level (we will call the corresponding results table `server_results_meta_level_0`) and for the meta-level (we will call the corresponding result table `server_results_meta_level_1`). In the following, you have to perform some data wrangling in order to generate the results presented in the paper.
-
-### SQL Table Preparation
-In order to generate the tables and plots presented in the paper, we ask you to create the following views in your SQL table: 
-
-* Name: `oracle_vbs_gap_level_0` </br>
-  Query: 
-  ````
-  SELECT oracle_level_0.scenario_name, oracle_level_0.fold, oracle_result_level_0, sbs_result_level_0, sbs_result_level_0/oracle_result_level_0 FROM (SELECT scenario_name, fold, result as oracle_result_level_0 FROM `server_results_meta_level_0` WHERE approach="oracle" AND metric="par10") as oracle_level_0 JOIN (SELECT scenario_name, fold, result as sbs_result_level_0 FROM `server_results_meta_level_0` WHERE approach="sbs" AND metric="par10") as sbs_level_0 ON oracle_level_0.scenario_name = sbs_level_0.scenario_name AND oracle_level_0.fold = sbs_level_0.fold
-  ````
-* Name: `oracle_vbs_gap_level_1` </br>
-  Query: 
-  ````
-  SELECT oracle_level_1.scenario_name, oracle_level_1.fold, oracle_result_level_1, sbs_result_level_1, sbs_result_level_1/oracle_result_level_1 FROM (SELECT scenario_name, fold, result as oracle_result_level_1 FROM `server_results_meta_level_1` WHERE approach="oracle" AND metric="par10") as oracle_level_1 JOIN (SELECT scenario_name, fold, result as sbs_result_level_1 FROM `server_results_meta_level_1` WHERE approach="sbs_with_feature_costs" AND metric="par10") as sbs_level_1 ON oracle_level_1.scenario_name = sbs_level_1.scenario_name AND oracle_level_1.fold = sbs_level_1.fold
-  ````
-* Name: `complete_sbs_vbs_and_gap_overview` </br>
-  Query:
-  ````
-  SELECT oracle_vbs_gap_level_0.scenario_name, oracle_vbs_gap_level_0.fold, oracle_vbs_gap_level_0.oracle_result_level_0, oracle_vbs_gap_level_1.oracle_result_level_1, oracle_vbs_gap_level_1.oracle_result_level_1 / oracle_vbs_gap_level_0.oracle_result_level_0 as oracle_level_1_div_oracle_level_0, oracle_vbs_gap_level_0.sbs_result_level_0, oracle_vbs_gap_level_1.sbs_result_level_1, oracle_vbs_gap_level_0.sbs_result_level_0/oracle_vbs_gap_level_1.sbs_result_level_1 as sbs_level_0_div_sbs_level_1, oracle_vbs_gap_level_0.sbs_result_level_0_div_oracle_result_level_0, oracle_vbs_gap_level_1.sbs_result_level_1_div_oracle_result_level_1  FROM `oracle_vbs_gap_level_0` JOIN `oracle_vbs_gap_level_1` ON oracle_vbs_gap_level_0.scenario_name = oracle_vbs_gap_level_1.scenario_name AND oracle_vbs_gap_level_0.fold = oracle_vbs_gap_level_1.fold
-  ````
-
 ### Generating Plots
-With the database views created as described above, you can simply run the `plot_generation.py` at the top-level of the project in order to obtain Figure 2 from the paper. 
-
-### Generating Tables
-If you want to re-generate the tables presented in the paper, navigate to the java folder: 
-````shell
-cd meta_as_code/java/
-````
-There you will find a gradle wrapper file as well as files containing database dumps ``table-data.kvcol`` and ``table2-data.kvcol``. In order to generate LaTeX tables run
-
-````shell
-./gradlew generateTables
-````
-
-if you are running a Linux or Mac OS and 
-
-````shell
-.\gradlew generateTables
-````
-if you have a Windows system. Running the command will result in three output files:  ``base-table.tex``,``win-tie-loss-stats.tex``, and ``meta-table.tex`` corresponding to Tables 1,2, and 3 respectively.
-
-In case you want to generate tables from an existing database, you need to configure the ``database.properties`` file with the connection details and set the config constant ``LOAD_FROM_DB`` (``src/main/java/TableGenerator.java``) from ``false`` to ``true``.
+By running the `generate_all_plots.py` file at the top level of the project, you can generate all the plots from the paper. Note that you must use the table names presented in Section 1 to plot the data.
 
 
-## 6. Generating Scenarios for a New Meta-level
+## 5. Generating Scenarios for a New Meta-level
 This part will most likely not be interesting for you and is only intended for developers: 
 
 ### Start Experiments for Meta-level N
