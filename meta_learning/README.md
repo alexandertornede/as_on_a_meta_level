@@ -110,7 +110,7 @@ if you are running a Linux or Mac OS and
 ````shell
 .\gradlew generateTables
 ````
-if you have a Windows system. Running the command will result in three output files:  ``base-table.tex``,``win-tie-loss-stats.tex``, and ``meta-table.tex`` corresponding to Tables 1,2, and 3 respectively.
+if you have a Windows system. Running the command will result in three output files:  ``base-table.tex``,``win-tie-loss-stats.tex``, and ``meta-table.tex``. The first one corresponds to Table 2 in the paper.
 
 In case you want to generate tables from an existing database, you need to configure the ``database.properties`` file with the connection details and set the config constant ``LOAD_FROM_DB`` (``src/main/java/TableGenerator.java``) from ``false`` to ``true``.
 
@@ -119,9 +119,9 @@ In case you want to generate tables from an existing database, you need to confi
 This part will most likely not be interesting for you and is only intended for developers: 
 
 ### Start Experiments for Meta-level N
-1. Copy results for meta-level N-1 from the "output" folder on the server into a new subdirectory in output named "level_{N-1}".
-2. Change "data_folder" in "conf/experiment_configuration" to "data/level_N/"
-2. Change "table" in "conf/experiment_configuration" to "server_results_meta_level_N"
-3. Change level in "meta_aslib_preparation" to level N
-4. Run "meta_aslib_preparation" for meta-level N and copy the data from "data/level_N" to the server into the same directory
+1. Copy results for meta-level N-1 from the `output` folder on the server into a new subdirectory in output named `level_{N-1}`.
+2. Change `data_folder` in `conf/experiment_configuration.cnf` to `data/level_N/`
+2. Change `table` in `conf/experiment_configuration` to `server_results_meta_level_N`
+3. Change level in `meta_aslib_preparation.py` to level N
+4. Run `meta_aslib_preparation.py` for meta-level N and copy the data from `data/level_N` to the server into the same directory
 5. Check tables in SQL server
