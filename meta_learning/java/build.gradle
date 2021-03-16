@@ -1,0 +1,51 @@
+plugins {
+	id 'java'
+	id 'eclipse-wtp'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+        	srcDir 'conf'
+    	}
+    }
+	test {
+	   	java {
+	   		srcDir 'test'
+	   	}
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+dependencies {
+	// dependencies for development time
+	compile ("ai.libs:jaicore-basic:0.2.4")
+}
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+    flatDir {
+    	dirs 'lib'
+    }
+	maven {
+        url "http://clojars.org/repo/"
+    }
+    maven {
+		url "https://jitpack.io"   
+    }
+    maven {
+    	url "https://nexus.cs.upb.de/repository/maven-releases/"   
+	}
+}
