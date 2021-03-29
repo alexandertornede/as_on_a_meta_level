@@ -6,7 +6,6 @@ import database_utils
 from ensembles.adaboost_r2 import AdaboostR2
 from ensembles.bagging import Bagging
 from ensembles.create_base_learner import CreateBaseLearner
-from ensembles.stacking_h2o import StackingH2O
 from pre_compute.create_base_learner_predictions import CreateBaseLearnerPrediction
 from ensembles.samme import SAMME
 from ensembles.stacking import Stacking
