@@ -19,7 +19,7 @@ from sklearn.pipeline import Pipeline
 
 class PerAlgorithmRegressor:
 
-    def __init__(self, scikit_regressor=RandomForestRegressor(n_jobs=1, n_estimators=100), impute_censored=False, feature_selection=None, feature_importances=False):
+    def __init__(self, scikit_regressor=RandomForestRegressor(n_jobs=1, n_estimators=100), impute_censored=False, feature_selection=None, feature_importances=False, data_weights=None):
         self.scikit_regressor = scikit_regressor
         self.logger = logging.getLogger("per_algorithm_regressor")
         self.logger.addHandler(logging.StreamHandler())
@@ -31,6 +31,7 @@ class PerAlgorithmRegressor:
         self.algorithm_cutoff_time = -1
         self.metric = Par10Metric()
         self.feature_importances = feature_importances
+        self.data_weights = data_weights
 
         # setup
         self.impute_censored = impute_censored
@@ -43,8 +44,8 @@ class PerAlgorithmRegressor:
 
         # train a regressor function per algorithm
         for algorithm_id in range(self.num_algorithms):
-            X_train, y_train = self.get_x_y(
-                scenario, amount_of_training_instances, algorithm_id, fold)
+            X_train, y_train, data_weights = self.get_x_y(
+                scenario, amount_of_training_instances, algorithm_id, fold, data_weights=self.data_weights)
 
             # pipeline selection - with or without feature selection
             if self.feature_selection is None:
@@ -71,7 +72,7 @@ class PerAlgorithmRegressor:
                 model = impute_censored(
                     X_train, y_train, censored, model, distr_func, self.algorithm_cutoff_time)
             else:
-                model.fit(X_train, y_train)
+                model.fit(X_train, y_train, sample_weight=data_weights)
                 if self.feature_importances:
                     self.save_feature_importance(model, scenario.scenario, len(X_train[0]))
 
@@ -164,26 +165,35 @@ class PerAlgorithmRegressor:
         return X_train, y_train, X_test, y_test
 
 
-    def get_x_y(self, scenario: ASlibScenario, num_requested_instances: int, algorithm_id: int, fold: int):
+    def get_x_y(self, scenario: ASlibScenario, num_requested_instances: int, algorithm_id: int, fold: int, data_weights=None):
         amount_of_training_instances = min(num_requested_instances,
                                            len(scenario.instances)) if num_requested_instances > 0 else len(
             scenario.instances)
-        resampled_scenario_feature_data, resampled_scenario_performances = resample(scenario.feature_data,
-                                                                                    scenario.performance_data,
-                                                                                    n_samples=amount_of_training_instances,
-                                                                                    random_state=fold)  # scenario.feature_data, scenario.performance_data #
 
-        X_for_algorithm_id, y_for_algorithm_id = self.construct_dataset_for_algorithm_id(resampled_scenario_feature_data,
-                                                                                         resampled_scenario_performances, algorithm_id,
-                                                                                         scenario.algorithm_cutoff_time)
+        if data_weights is not None:
+            resampled_scenario_feature_data, resampled_scenario_performances, resampled_data_weights = resample(
+                scenario.feature_data,
+                scenario.performance_data, data_weights,
+                n_samples=amount_of_training_instances,
+                random_state=fold)
+        else:
+            resampled_scenario_feature_data, resampled_scenario_performances = resample(
+                scenario.feature_data,
+                scenario.performance_data,
+                n_samples=amount_of_training_instances,
+                random_state=fold)
+            resampled_data_weights = None
 
-        return X_for_algorithm_id, y_for_algorithm_id
+        X_for_algorithm_id, y_for_algorithm_id, data_weights_for_algorithm_id = self.construct_dataset_for_algorithm_id(resampled_scenario_feature_data,
+                                                                                         resampled_scenario_performances, resampled_data_weights, algorithm_id)
 
-    def construct_dataset_for_algorithm_id(self, instance_features, performances, algorithm_id: int,
-                                           algorithm_cutoff_time):
+        return X_for_algorithm_id, y_for_algorithm_id, data_weights_for_algorithm_id
+
+
+
+    def construct_dataset_for_algorithm_id(self, instance_features, performances, data_weights, algorithm_id: int):
         performances_of_algorithm_with_id = performances.iloc[:, algorithm_id].to_numpy(
         ) if isinstance(performances, pd.DataFrame) else performances[:, algorithm_id]
-        num_instances = len(performances_of_algorithm_with_id)
 
         if isinstance(instance_features, pd.DataFrame):
             instance_features = instance_features.to_numpy()
@@ -193,7 +203,11 @@ class PerAlgorithmRegressor:
         instance_features = instance_features[~nan_mask]
         performances_of_algorithm_with_id = performances_of_algorithm_with_id[~nan_mask]
 
-        return instance_features, performances_of_algorithm_with_id
+        if data_weights is not None:
+            data_weights = data_weights[~nan_mask]
+
+            return instance_features, performances_of_algorithm_with_id, data_weights
+        return instance_features, performances_of_algorithm_with_id, None
 
     # save base learner for later use
     def save_feature_importance(self, base_learner, scenario_name, num_features):
