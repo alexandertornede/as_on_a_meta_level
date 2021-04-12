@@ -108,6 +108,7 @@ There you will find a gradle wrapper file as well as files containing database d
 if you are running a Linux or Mac OS and 
 
 ````shell
+chmod +x gradlew
 .\gradlew generateTables
 ````
 if you have a Windows system. Running the command will result in three output files:  ``base-table.tex``,``win-tie-loss-stats.tex``, and ``meta-table.tex``. The first one corresponds to Table 2 in the paper.
