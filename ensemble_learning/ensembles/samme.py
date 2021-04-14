@@ -12,6 +12,7 @@ from aslib_scenario.aslib_scenario import ASlibScenario
 
 from baselines.satzilla11 import SATzilla11
 from baselines.sunny import SUNNY
+from baselines.isac import ISAC
 from ensembles.write_to_database import write_to_database
 from number_unsolved_instances import NumberUnsolvedInstances
 
@@ -48,6 +49,8 @@ class SAMME:
                 self.base_learners.append(SATzilla11())
             elif self.algorithm_name == 'sunny':
                 self.base_learners.append(SUNNY())
+            elif self.algorithm_name == 'isac':
+                self.base_learners.append(ISAC())
             else:
                 sys.exit('Wrong base learner for boosting')
 
@@ -59,6 +62,7 @@ class SAMME:
 
             if self.current_iteration != self.num_iterations:
                 write_to_database(scenario, self, fold)
+            write_to_database(scenario, self, fold, on_training=True)
 
     def predict(self, features_of_test_instance, instance_id: int):
         confidence = np.zeros(self.num_algorithms)
@@ -105,6 +109,7 @@ class SAMME:
                 is_correct.append(True)
 
         err = err / sum(self.data_weights)
+        print(err)
 
         #print(1-err)
         #print(1 / self.num_algorithms)

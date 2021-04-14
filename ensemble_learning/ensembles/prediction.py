@@ -2,12 +2,19 @@ import numpy as np
 from scipy.stats import rankdata
 
 
-def predict_with_ranking(features_of_test_instance, instance_id: int, num_algorithms: int, trained_models, weights=None, performance_rank=False, rank_method='average', pre_computed_predictions=None):
+def predict_with_ranking(features_of_test_instance, instance_id: int, num_algorithms: int, trained_models, weights=None, performance_rank=False, rank_method='average', pre_computed_predictions=None, model_index=None, opt=False):
     # use all predictions (ranking) of the base learner
     predictions = np.zeros((num_algorithms, 1))
-    for i, model in enumerate(trained_models):
+
+    if model_index is None:
+        model_index = range(len(trained_models))
+
+    for i, model in zip(model_index, trained_models):
         if pre_computed_predictions is not None:
-            prediction = pre_computed_predictions[i][str(features_of_test_instance)]
+            if opt:
+                prediction = pre_computed_predictions[i][instance_id]
+            else:
+                prediction = pre_computed_predictions[i][str(features_of_test_instance)]
         else:
             prediction = model.predict(features_of_test_instance, instance_id)
 

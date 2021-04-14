@@ -7,8 +7,11 @@ from par_10_metric import Par10Metric
 import configparser
 
 
-def _evaluate_train_test_split_mod(scenario: ASlibScenario, approach, metrics, fold: int):
+def _evaluate_train_test_split_mod(scenario: ASlibScenario, approach, metrics, fold: int, on_training):
     test_scenario, train_scenario = scenario.get_split(indx=fold)
+
+    if on_training:
+        test_scenario = train_scenario
 
     approach_metric_values = np.zeros(len(metrics))
 
@@ -44,7 +47,7 @@ def _evaluate_train_test_split_mod(scenario: ASlibScenario, approach, metrics, f
 
     return approach_metric_values
 
-def write_to_database(scenario: ASlibScenario, approach, fold: int):
+def write_to_database(scenario: ASlibScenario, approach, fold: int, on_training=False):
     metrics = list()
     metrics.append(Par10Metric())
     metrics.append(NumberUnsolvedInstances(False))
@@ -54,11 +57,15 @@ def write_to_database(scenario: ASlibScenario, approach, fold: int):
     if scenario_name == 'GLUHACK-18':
         scenario_name = 'GLUHACK-2018'
     scenario.read_scenario('data/aslib_data-master/' + scenario_name)
-    metric_results = _evaluate_train_test_split_mod(scenario, approach, metrics, fold)
+    metric_results = _evaluate_train_test_split_mod(scenario, approach, metrics, fold, on_training)
 
     db_config = load_configuration()
     for i, result in enumerate(metric_results):
-        publish_results_to_database(db_config, scenario.scenario, fold, approach.get_name(), metrics[i].get_name(), result)
+        if on_training:
+            name = 'training_' + approach.get_name()
+            publish_results_to_database(db_config, scenario.scenario, fold, name, metrics[i].get_name(), result)
+        else:
+            publish_results_to_database(db_config, scenario.scenario, fold, approach.get_name(), metrics[i].get_name(), result)
 
 def load_configuration():
     config = configparser.ConfigParser()
