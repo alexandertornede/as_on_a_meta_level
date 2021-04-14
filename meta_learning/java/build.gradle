@@ -33,6 +33,11 @@ dependencies {
 	compile ("ai.libs:jaicore-basic:0.2.4")
 }
 
+task generateResultsTable(type: JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  main = "MetaASTableGenerator"
+}
+
 repositories {
 	mavenLocal()
     mavenCentral()
