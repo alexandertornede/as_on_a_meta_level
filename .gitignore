@@ -29,3 +29,10 @@ meta_learning/python/singularity/*.simg
 meta_learning/python/data/level_0
 meta_learning/python/data/meta_base
 meta_learning/python/.idea
+
+ensemble_learning/data
+ensemble_learning/plots/plotted
+ensemble_learning/pre_compute
+
+*.cfg
+*.xml
