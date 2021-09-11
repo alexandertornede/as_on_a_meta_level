@@ -8,7 +8,6 @@ import configparser
 import multiprocessing as mp
 
 import database_utils
-from ensembles.adaboost_r2 import AdaboostR2
 from ensembles.bagging import Bagging
 from ensembles.samme import SAMME
 from ensembles.stacking import Stacking
