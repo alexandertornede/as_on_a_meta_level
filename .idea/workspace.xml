@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f3e6639-8784-46b3-bc37-5c6a4f72f7e0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/bagging_base_learner_comparison_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/bagging_base_learner_comparison_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/boosting_comparion_ploy.py" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/boosting_comparion_ploy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/boosting_multiclass_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/boosting_multiclass_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/boosting_sunny_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/boosting_sunny_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/stacking_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/stacking_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/voting_table_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/voting_table_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/voting_violin_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/voting_violin_plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/conf/experiment_configuration.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_comparion.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_comparion.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_comparion1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_comparion1.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_comparion2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_comparion2.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_isac.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/SAMME_isac.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/Table.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/Table.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/bagging_base_learner_comparion.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/bagging_base_learner_comparion.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/bagging_base_learner_comparion1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/bagging_base_learner_comparion1.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/bagging_base_learner_comparion2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/bagging_base_learner_comparion2.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/stacking_feature_selection.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/stacking_feature_selection.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ensemble_learning/plots/plotted/voting_violinplot.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ensemble_learning/plots/plotted/voting_violinplot.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +35,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.voting_table_plot">
+  <component name="RunManager" selected="Python.run">
     <configuration name="bagging_base_learner_comparison_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="as_on_a_meta_level" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -75,7 +80,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="boosting_sunny_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="as_on_a_meta_level" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -83,12 +88,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ensemble_learning/plots" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ensemble_learning" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ensemble_learning/plots/boosting_sunny_plot.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ensemble_learning/run.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -97,7 +102,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ranking_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="stacking_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="as_on_a_meta_level" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -110,7 +115,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ensemble_learning/plots/ranking_plot.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ensemble_learning/plots/stacking_plot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -119,7 +124,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="voting_table_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="voting_violin_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="as_on_a_meta_level" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -132,7 +137,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ensemble_learning/plots/voting_table_plot.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ensemble_learning/plots/voting_violin_plot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -143,11 +148,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.voting_table_plot" />
-        <item itemvalue="Python.ranking_plot" />
-        <item itemvalue="Python.boosting_sunny_plot" />
-        <item itemvalue="Python.boosting_multiclass_plot" />
+        <item itemvalue="Python.run" />
+        <item itemvalue="Python.stacking_plot" />
+        <item itemvalue="Python.voting_violin_plot" />
         <item itemvalue="Python.bagging_base_learner_comparison_plot" />
+        <item itemvalue="Python.boosting_multiclass_plot" />
       </list>
     </recent_temporary>
   </component>
@@ -175,6 +180,10 @@
       <workItem from="1630991689281" duration="4373000" />
       <workItem from="1631076855393" duration="3869000" />
       <workItem from="1631165061355" duration="2539000" />
+      <workItem from="1631250964106" duration="3007000" />
+      <workItem from="1631255061039" duration="2184000" />
+      <workItem from="1631284891658" duration="484000" />
+      <workItem from="1631354092815" duration="2274000" />
     </task>
     <servers />
   </component>
@@ -182,30 +191,34 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="879" height="394" key="GridCell.Tab.0.bottom" timestamp="1631167811460">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="2442" height="394" key="GridCell.Tab.0.bottom" timestamp="1631355381846">
+      <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state width="2442" height="394" key="GridCell.Tab.0.bottom/1024.0.2560.1440/0.27.1024.741@1024.0.2560.1440" timestamp="1630652764033" />
-    <state width="879" height="394" key="GridCell.Tab.0.bottom/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631167811460" />
-    <state width="2442" height="484" key="GridCell.Tab.0.bottom/72.27.2488.1413@72.27.2488.1413" timestamp="1624285246068" />
-    <state width="879" height="394" key="GridCell.Tab.0.center" timestamp="1631167811460">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="2442" height="394" key="GridCell.Tab.0.bottom/1920.0.2560.1440/0.462.1920.1080@0.462.1920.1080" timestamp="1631257214335" />
+    <state width="2442" height="394" key="GridCell.Tab.0.bottom/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631256025304" />
+    <state width="2442" height="394" key="GridCell.Tab.0.bottom/72.27.2488.1413@72.27.2488.1413" timestamp="1631355381846" />
+    <state width="2442" height="394" key="GridCell.Tab.0.center" timestamp="1631355381846">
+      <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state width="2442" height="394" key="GridCell.Tab.0.center/1024.0.2560.1440/0.27.1024.741@1024.0.2560.1440" timestamp="1630652764033" />
-    <state width="879" height="394" key="GridCell.Tab.0.center/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631167811460" />
-    <state width="2442" height="484" key="GridCell.Tab.0.center/72.27.2488.1413@72.27.2488.1413" timestamp="1624285246068" />
-    <state width="879" height="394" key="GridCell.Tab.0.left" timestamp="1631167811460">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="2442" height="394" key="GridCell.Tab.0.center/1920.0.2560.1440/0.462.1920.1080@0.462.1920.1080" timestamp="1631257214335" />
+    <state width="2442" height="394" key="GridCell.Tab.0.center/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631256025304" />
+    <state width="2442" height="394" key="GridCell.Tab.0.center/72.27.2488.1413@72.27.2488.1413" timestamp="1631355381846" />
+    <state width="2442" height="394" key="GridCell.Tab.0.left" timestamp="1631355381846">
+      <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state width="2442" height="394" key="GridCell.Tab.0.left/1024.0.2560.1440/0.27.1024.741@1024.0.2560.1440" timestamp="1630652764033" />
-    <state width="879" height="394" key="GridCell.Tab.0.left/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631167811460" />
-    <state width="2442" height="484" key="GridCell.Tab.0.left/72.27.2488.1413@72.27.2488.1413" timestamp="1624285246068" />
-    <state width="879" height="394" key="GridCell.Tab.0.right" timestamp="1631167811460">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="2442" height="394" key="GridCell.Tab.0.left/1920.0.2560.1440/0.462.1920.1080@0.462.1920.1080" timestamp="1631257214334" />
+    <state width="2442" height="394" key="GridCell.Tab.0.left/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631256025304" />
+    <state width="2442" height="394" key="GridCell.Tab.0.left/72.27.2488.1413@72.27.2488.1413" timestamp="1631355381846" />
+    <state width="2442" height="394" key="GridCell.Tab.0.right" timestamp="1631355381846">
+      <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state width="2442" height="394" key="GridCell.Tab.0.right/1024.0.2560.1440/0.27.1024.741@1024.0.2560.1440" timestamp="1630652764033" />
-    <state width="879" height="394" key="GridCell.Tab.0.right/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631167811460" />
-    <state width="2442" height="484" key="GridCell.Tab.0.right/72.27.2488.1413@72.27.2488.1413" timestamp="1624285246068" />
+    <state width="2442" height="394" key="GridCell.Tab.0.right/1920.0.2560.1440/0.462.1920.1080@0.462.1920.1080" timestamp="1631257214335" />
+    <state width="2442" height="394" key="GridCell.Tab.0.right/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631256025304" />
+    <state width="2442" height="394" key="GridCell.Tab.0.right/72.27.2488.1413@72.27.2488.1413" timestamp="1631355381846" />
     <state width="2442" height="484" key="GridCell.Tab.1.bottom" timestamp="1630662600813">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
@@ -226,16 +239,25 @@
     </state>
     <state width="2442" height="484" key="GridCell.Tab.1.right/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1630662600813" />
     <state width="2442" height="484" key="GridCell.Tab.1.right/72.27.2488.1413@72.27.2488.1413" timestamp="1624285246069" />
+    <state x="2725" y="368" width="1022" height="737" key="SettingsEditor" timestamp="1631252077525">
+      <screen x="1920" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2725" y="368" width="1022" height="737" key="SettingsEditor/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631252077525" />
+    <state x="3017" y="648" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1631251163829">
+      <screen x="1920" y="0" width="2560" height="1440" />
+    </state>
+    <state x="3017" y="648" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.2560.1440/0.462.1920.1080@1920.0.2560.1440" timestamp="1631251163829" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/as_on_a_meta_level$voting_table_plot.coverage" NAME="voting_table_plot Coverage Results" MODIFIED="1631166679925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
-    <SUITE FILE_PATH="coverage/as_on_a_meta_level$boosting_multiclass_plot.coverage" NAME="boosting_multiclass_plot Coverage Results" MODIFIED="1630994403971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
+    <SUITE FILE_PATH="coverage/as_on_a_meta_level$voting_table_plot.coverage" NAME="voting_table_plot Coverage Results" MODIFIED="1631255710065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
+    <SUITE FILE_PATH="coverage/as_on_a_meta_level$boosting_multiclass_plot.coverage" NAME="boosting_multiclass_plot Coverage Results" MODIFIED="1631256743716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
     <SUITE FILE_PATH="coverage/as_on_a_meta_level$ranking_plot.coverage" NAME="ranking_plot Coverage Results" MODIFIED="1631080520816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
-    <SUITE FILE_PATH="coverage/as_on_a_meta_level$stacking_plot.coverage" NAME="stacking_plot Coverage Results" MODIFIED="1630904702153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
-    <SUITE FILE_PATH="coverage/as_on_a_meta_level$boosting_comparion_ploy.coverage" NAME="boosting_comparion_ploy Coverage Results" MODIFIED="1630992690538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
-    <SUITE FILE_PATH="coverage/as_on_a_meta_level$bagging_base_learner_comparison_plot.coverage" NAME="bagging_base_learner_comparison_plot Coverage Results" MODIFIED="1630993386956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
+    <SUITE FILE_PATH="coverage/as_on_a_meta_level$stacking_plot.coverage" NAME="stacking_plot Coverage Results" MODIFIED="1631255928769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
+    <SUITE FILE_PATH="coverage/as_on_a_meta_level$boosting_comparion_ploy.coverage" NAME="boosting_comparion_ploy Coverage Results" MODIFIED="1631256593674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
+    <SUITE FILE_PATH="coverage/as_on_a_meta_level$run.coverage" NAME="run Coverage Results" MODIFIED="1631355381840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning" />
+    <SUITE FILE_PATH="coverage/as_on_a_meta_level$bagging_base_learner_comparison_plot.coverage" NAME="bagging_base_learner_comparison_plot Coverage Results" MODIFIED="1631257214330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
     <SUITE FILE_PATH="coverage/as_on_a_meta_level$generate_all_plots.coverage" NAME="generate_all_plots Coverage Results" MODIFIED="1618235772235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
-    <SUITE FILE_PATH="coverage/as_on_a_meta_level$voting_violin_plot.coverage" NAME="voting_violin_plot Coverage Results" MODIFIED="1630651130377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
     <SUITE FILE_PATH="coverage/as_on_a_meta_level$boosting_sunny_plot.coverage" NAME="boosting_sunny_plot Coverage Results" MODIFIED="1630994607016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
+    <SUITE FILE_PATH="coverage/as_on_a_meta_level$voting_violin_plot.coverage" NAME="voting_violin_plot Coverage Results" MODIFIED="1631255667420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ensemble_learning/plots" />
   </component>
 </project>
