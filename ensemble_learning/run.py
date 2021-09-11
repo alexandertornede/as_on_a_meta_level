@@ -256,7 +256,7 @@ amount_of_scenario_training_instances = int(
     config["EXPERIMENTS"]["amount_of_training_scenario_instances"])
 tune_hyperparameters = bool(int(config["EXPERIMENTS"]["tune_hyperparameters"]))
 
-for fold in range(1, 2):
+for fold in range(1, 11):
 
     for scenario in scenarios:
         approaches = create_approach(approach_names)
@@ -271,11 +271,11 @@ for fold in range(1, 2):
                 metrics.append(NumberUnsolvedInstances(True))
             logger.info("Submitted pool task for approach \"" +
                         str(approach.get_name()) + "\" on scenario: " + scenario)
-            # pool.apply_async(evaluate_scenario, args=(scenario, approach, metrics,
-            #                                          amount_of_scenario_training_instances, fold, config, tune_hyperparameters), callback=log_result)
+            pool.apply_async(evaluate_scenario, args=(scenario, approach, metrics,
+                                                      amount_of_scenario_training_instances, fold, config, tune_hyperparameters), callback=log_result)
 
-            evaluate_scenario(scenario, approach, metrics,
-                              amount_of_scenario_training_instances, fold, config, tune_hyperparameters)
+            #evaluate_scenario(scenario, approach, metrics,
+            #                  amount_of_scenario_training_instances, fold, config, tune_hyperparameters)
 
             print('Finished evaluation of fold')
 
