@@ -5,7 +5,7 @@ import database_utils
 from evaluation_of_train_test_split import evaluate_train_test_split
 from hyperparameter_optimizer import HyperParameterOptimizer
 
-from ensemble_learning.runtime_metric import PerformanceMetric
+from runtime_metric import PerformanceMetric
 
 logger = logging.getLogger("evaluation")
 logger.addHandler(logging.StreamHandler())
