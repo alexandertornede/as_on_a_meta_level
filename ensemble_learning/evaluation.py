@@ -5,6 +5,8 @@ import database_utils
 from evaluation_of_train_test_split import evaluate_train_test_split
 from hyperparameter_optimizer import HyperParameterOptimizer
 
+from ensemble_learning.runtime_metric import PerformanceMetric
+
 logger = logging.getLogger("evaluation")
 logger.addHandler(logging.StreamHandler())
 
@@ -52,7 +54,11 @@ def print_stats_of_scenario(scenario: ASlibScenario):
 def evaluate_scenario(scenario_name: str, approach, metrics, amount_of_training_scenario_instances: int, fold: int, db_config, tune_hyperparameters: bool):
     scenario = ASlibScenario()
     scenario.read_scenario('data/aslib_data-master/' + scenario_name)
-    print_stats_of_scenario(scenario)
+
+    if scenario_name in ['OPENML-WEKA-2017', 'TTP-2016']:
+        metrics = list()
+        metrics.append(PerformanceMetric())
+
     evaluate(scenario, approach, metrics, amount_of_training_scenario_instances, fold, db_config, tune_hyperparameters)
     return scenario_name
 

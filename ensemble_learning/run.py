@@ -1,3 +1,8 @@
+import os
+
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
+
 import logging
 import configparser
 import multiprocessing as mp
@@ -25,7 +30,6 @@ from baselines.satzilla07 import SATzilla07
 from sklearn.linear_model import Ridge
 from par_10_metric import Par10Metric
 from number_unsolved_instances import NumberUnsolvedInstances
-
 
 logger = logging.getLogger("run")
 logger.addHandler(logging.StreamHandler())
@@ -134,8 +138,10 @@ def create_approach(approach_names):
                 approaches.append(Voting(base_learner=combination, pre_computed=True, weighting=True))
         if approach_name == 'voting_optimize':
             approaches.append(Voting(base_learner=[1, 2, 3, 4, 5, 6, 7], pre_computed=True, optimze_base_learner=True))
-            approaches.append(Voting(base_learner=[1, 2, 3, 4, 5, 6, 7], ranking=True, pre_computed=True, optimze_base_learner=True))
-            approaches.append(Voting(base_learner=[1, 2, 3, 4, 5, 6, 7], weighting=True, pre_computed=True, optimze_base_learner=True))
+            approaches.append(
+                Voting(base_learner=[1, 2, 3, 4, 5, 6, 7], ranking=True, pre_computed=True, optimze_base_learner=True))
+            approaches.append(Voting(base_learner=[1, 2, 3, 4, 5, 6, 7], weighting=True, pre_computed=True,
+                                     optimze_base_learner=True))
 
         # bagging
         if approach_name == 'bagging-base_learner':
@@ -157,7 +163,8 @@ def create_approach(approach_names):
             approaches.append(Bagging(num_base_learner=10, base_learner=SUNNY(), use_ranking=True))
             approaches.append(Bagging(num_base_learner=10, base_learner=ISAC(), use_ranking=True))
             approaches.append(Bagging(num_base_learner=10, base_learner=SATzilla11(), use_ranking=True))
-            approaches.append(Bagging(num_base_learner=10, base_learner=MultiClassAlgorithmSelector(), use_ranking=True))
+            approaches.append(
+                Bagging(num_base_learner=10, base_learner=MultiClassAlgorithmSelector(), use_ranking=True))
 
         # boosting
         if approach_name == 'samme':
@@ -169,7 +176,8 @@ def create_approach(approach_names):
         # stacking
         if approach_name == 'stacking_meta_learner':
             base_learner = [1, 2, 3, 4, 5, 6, 7]
-            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='per_algorithm_regressor', pre_computed=True))
+            approaches.append(
+                Stacking(base_learner=base_learner, meta_learner_type='per_algorithm_regressor', pre_computed=True))
             approaches.append(Stacking(base_learner=base_learner, meta_learner_type='SUNNY', pre_computed=True))
             approaches.append(Stacking(base_learner=base_learner, meta_learner_type='ISAC', pre_computed=True))
             approaches.append(Stacking(base_learner=base_learner, meta_learner_type='SATzilla-11', pre_computed=True))
@@ -177,34 +185,50 @@ def create_approach(approach_names):
             approaches.append(Stacking(base_learner=base_learner, meta_learner_type='multiclass', pre_computed=True))
         if approach_name == 'stacking_feature_selection':
             base_learner = [1, 2, 3, 4, 5, 6, 7]
-            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='per_algorithm_regressor', pre_computed=True, feature_selection='variance_threshold'))
-            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='SUNNY', pre_computed=True, feature_selection='variance_threshold'))
-            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='ISAC', pre_computed=True, feature_selection='variance_threshold'))
-            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='SATzilla-11', pre_computed=True, feature_selection='variance_threshold'))
-            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='PAR10', pre_computed=True, feature_selection='variance_threshold'))
-            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='multiclass', pre_computed=True, feature_selection='variance_threshold'))
+            approaches.append(
+                Stacking(base_learner=base_learner, meta_learner_type='per_algorithm_regressor', pre_computed=True,
+                         feature_selection='variance_threshold'))
+            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='SUNNY', pre_computed=True,
+                                       feature_selection='variance_threshold'))
+            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='ISAC', pre_computed=True,
+                                       feature_selection='variance_threshold'))
+            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='SATzilla-11', pre_computed=True,
+                                       feature_selection='variance_threshold'))
+            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='PAR10', pre_computed=True,
+                                       feature_selection='variance_threshold'))
+            approaches.append(Stacking(base_learner=base_learner, meta_learner_type='multiclass', pre_computed=True,
+                                       feature_selection='variance_threshold'))
 
         # precompute baseline predictions
         if approach_name == 'create_base_learner_prediction':
-            approaches.append(CreateBaseLearnerPrediction(algorithm='per_algorithm_regressor', for_cross_validation=False, predict_full_training_set=True))
-            approaches.append(CreateBaseLearnerPrediction(algorithm='per_algorithm_regressor', for_cross_validation=False))
+            approaches.append(
+                CreateBaseLearnerPrediction(algorithm='per_algorithm_regressor', for_cross_validation=False,
+                                            predict_full_training_set=True))
+            approaches.append(
+                CreateBaseLearnerPrediction(algorithm='per_algorithm_regressor', for_cross_validation=False))
 
-            approaches.append(CreateBaseLearnerPrediction(algorithm='sunny', for_cross_validation=False, predict_full_training_set=True))
+            approaches.append(CreateBaseLearnerPrediction(algorithm='sunny', for_cross_validation=False,
+                                                          predict_full_training_set=True))
             approaches.append(CreateBaseLearnerPrediction(algorithm='sunny', for_cross_validation=False))
 
-            approaches.append(CreateBaseLearnerPrediction(algorithm='isac', for_cross_validation=False, predict_full_training_set=True))
+            approaches.append(CreateBaseLearnerPrediction(algorithm='isac', for_cross_validation=False,
+                                                          predict_full_training_set=True))
             approaches.append(CreateBaseLearnerPrediction(algorithm='isac', for_cross_validation=False))
 
-            approaches.append(CreateBaseLearnerPrediction(algorithm='satzilla', for_cross_validation=False, predict_full_training_set=True))
+            approaches.append(CreateBaseLearnerPrediction(algorithm='satzilla', for_cross_validation=False,
+                                                          predict_full_training_set=True))
             approaches.append(CreateBaseLearnerPrediction(algorithm='satzilla', for_cross_validation=False))
 
-            approaches.append(CreateBaseLearnerPrediction(algorithm='expectation', for_cross_validation=False, predict_full_training_set=True))
+            approaches.append(CreateBaseLearnerPrediction(algorithm='expectation', for_cross_validation=False,
+                                                          predict_full_training_set=True))
             approaches.append(CreateBaseLearnerPrediction(algorithm='expectation', for_cross_validation=False))
 
-            approaches.append(CreateBaseLearnerPrediction(algorithm='par10', for_cross_validation=False, predict_full_training_set=True))
+            approaches.append(CreateBaseLearnerPrediction(algorithm='par10', for_cross_validation=False,
+                                                          predict_full_training_set=True))
             approaches.append(CreateBaseLearnerPrediction(algorithm='par10', for_cross_validation=False))
 
-            approaches.append(CreateBaseLearnerPrediction(algorithm='multiclass', for_cross_validation=False, predict_full_training_set=True))
+            approaches.append(CreateBaseLearnerPrediction(algorithm='multiclass', for_cross_validation=False,
+                                                          predict_full_training_set=True))
             approaches.append(CreateBaseLearnerPrediction(algorithm='multiclass', for_cross_validation=False))
 
     return approaches
@@ -226,14 +250,13 @@ database_utils.create_table_if_not_exists(db_handle, table_name)
 amount_of_cpus_to_use = int(config['EXPERIMENTS']['amount_of_cpus'])
 pool = mp.Pool(amount_of_cpus_to_use)
 
-
 scenarios = config["EXPERIMENTS"]["scenarios"].split(",")
 approach_names = config["EXPERIMENTS"]["approaches"].split(",")
 amount_of_scenario_training_instances = int(
     config["EXPERIMENTS"]["amount_of_training_scenario_instances"])
 tune_hyperparameters = bool(int(config["EXPERIMENTS"]["tune_hyperparameters"]))
 
-for fold in range(1, 11):
+for fold in range(1, 2):
 
     for scenario in scenarios:
         approaches = create_approach(approach_names)
@@ -248,11 +271,12 @@ for fold in range(1, 11):
                 metrics.append(NumberUnsolvedInstances(True))
             logger.info("Submitted pool task for approach \"" +
                         str(approach.get_name()) + "\" on scenario: " + scenario)
-            pool.apply_async(evaluate_scenario, args=(scenario, approach, metrics,
-                                                      amount_of_scenario_training_instances, fold, config, tune_hyperparameters), callback=log_result)
+            # pool.apply_async(evaluate_scenario, args=(scenario, approach, metrics,
+            #                                          amount_of_scenario_training_instances, fold, config, tune_hyperparameters), callback=log_result)
 
-            #evaluate_scenario(scenario, approach, metrics,
-            #                 amount_of_scenario_training_instances, fold, config, tune_hyperparameters)
+            evaluate_scenario(scenario, approach, metrics,
+                              amount_of_scenario_training_instances, fold, config, tune_hyperparameters)
+
             print('Finished evaluation of fold')
 
 pool.close()
