@@ -230,11 +230,11 @@ def plot():
             \rotatebox{90}{Multiclass} & \rotatebox{90}{PerAlgo} &
             \rotatebox{90}{R2S-Exp} &
             \rotatebox{90}{R2S-PAR10} &
-            \rotatebox{90}{ISAC} &
+            \rotatebox{90}{ISAC-like} &
             \rotatebox{90}{Multiclass} &
             \rotatebox{90}{PerAlgo} &
-            \rotatebox{90}{SATzilla'11} &
-            \rotatebox{90}{SUNNY}\\
+            \rotatebox{90}{SATzilla'11-like} &
+            \rotatebox{90}{SUNNY-like}\\
         \midrule
         \textbf{Scenario} \\
         \midrule"""

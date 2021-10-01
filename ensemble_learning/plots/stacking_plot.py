@@ -28,16 +28,13 @@ def plot():
     baselines = get_dataframe_for_sql_query(
         "SELECT approach, scenario_name, AVG(n_par10) as result, COUNT(n_par10) as num FROM (SELECT vbs_sbs.scenario_name, vbs_sbs.fold, approach_results.approach, vbs_sbs.metric, approach_results.result, ((approach_results.result - vbs_sbs.oracle_result)/(vbs_sbs.sbs_result -vbs_sbs.oracle_result)) as n_par10,vbs_sbs.oracle_result, vbs_sbs.sbs_result FROM (SELECT oracle_table.scenario_name, oracle_table.fold, oracle_table.metric, oracle_result, sbs_result FROM (SELECT scenario_name, fold, approach, metric, result as oracle_result FROM `vbs_sbs` WHERE approach='oracle') as oracle_table JOIN (SELECT scenario_name, fold, approach, metric, result as sbs_result FROM `vbs_sbs` WHERE approach='sbs') as sbs_table ON oracle_table.scenario_name = sbs_table.scenario_name AND oracle_table.fold=sbs_table.fold AND oracle_table.metric = sbs_table.metric) as vbs_sbs JOIN approach_results ON vbs_sbs.scenario_name = approach_results.scenario_name AND vbs_sbs.fold = approach_results.fold AND vbs_sbs.metric = approach_results.metric WHERE vbs_sbs.metric='par10') as final WHERE metric='par10' AND scenario_name IN ('ASP-POTASSCO', 'BNSL-2016', 'CPMP-2015', 'CSP-2010', 'CSP-MZN-2013', 'CSP-Minizinc-Time-2016', 'GLUHACK-18', 'MAXSAT-PMS-2016', 'MAXSAT-WPMS-2016', 'MAXSAT12-PMS', 'MAXSAT15-PMS-INDU', 'PROTEUS-2014', 'QBF-2011', 'QBF-2014', 'QBF-2016', 'SAT03-16_INDU', 'SAT11-HAND', 'SAT11-INDU', 'SAT11-RAND', 'SAT12-ALL', 'SAT12-HAND', 'SAT12-INDU', 'SAT12-RAND', 'SAT15-INDU', 'SAT18-EXP') AND (approach='Expectation_algorithm_survival_forest' OR approach='PAR10_algorithm_survival_forest' OR approach='isac' OR approach='multiclass_algorithm_selector' OR approach='per_algorithm_RandomForestRegressor_regressor' OR approach='satzilla-11' OR approach='sunny') GROUP BY scenario_name, approach")
 
-    print(stacking)
-    print(stacking_feature_selection)
-    #print(stacking)
-    #print(sat)
-    #print(baseline)
 
     baselines_results_mean = []
     for app in baselines.approach.unique():
+        print(app)
         baselines_results_mean.append(np.average(baselines.loc[baselines['approach'] == app].result))
 
+    print(baselines_results_mean)
     fig = plt.figure(1, figsize=(10, 5))
 
     ax = fig.add_subplot(111)
@@ -65,11 +62,14 @@ def plot():
     ax.set_xticks(range(len(permutation)))
     ax.set_xticklabels(ax.set_xticklabels(["PerAlgo", "SUNNY", "ISAC", "SATzilla'11", "R2S-PAR10", "Multiclass"]))
 
+    ax.axhline(baselines_results_mean[1], color='#264653', linestyle='dashed', linewidth=1.4, zorder=10)
+    ax.text(5.5, baselines_results_mean[1] - 0.03, "R2S-PAR10", rotation=90)
+
 
     #plt.xticks(rotation=90)
 
     ax.set_ylabel('nPAR10', fontsize=11)
-    ax.set_xlabel('Meta-Learner', fontsize=11)
+    ax.set_xlabel('Meta Learner', fontsize=11)
 
     #ax.set_ylim(bottom=0.3)
     #ax.set_ylim(top=0.7)

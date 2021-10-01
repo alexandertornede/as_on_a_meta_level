@@ -57,7 +57,7 @@ def plot():
                      baselines[baselines['approach'] == 'per_algorithm_RandomForestRegressor_regressor'],
                      baselines[baselines['approach'] == 'satzilla-11'], baselines[baselines['approach'] == 'sunny'], baselines[baselines['approach'] == 'Expectation_algorithm_survival_forest'], baselines[baselines['approach'] == 'PAR10_algorithm_survival_forest']]
 
-    fig = plt.figure(1, figsize=(20, 8))
+    fig = plt.figure(1, figsize=(15, 6))
 
     plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.4, hspace=None)
 
