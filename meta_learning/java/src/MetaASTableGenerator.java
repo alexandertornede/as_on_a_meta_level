@@ -14,10 +14,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.aeonbits.owner.ConfigFactory;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.api4.java.datastructure.kvstore.IKVStore;
 
+import ai.libs.jaicore.basic.FileUtil;
 import ai.libs.jaicore.basic.StatisticsUtil;
 import ai.libs.jaicore.basic.ValueUtil;
 import ai.libs.jaicore.basic.kvstore.KVStore;
@@ -33,7 +32,7 @@ import ai.libs.jaicore.db.sql.DatabaseAdapterFactory;
 
 public class MetaASTableGenerator {
 
-	private static final String DB_CONFIG = "<DB-CONFIG-FILE>";
+	private static final String DB_CONFIG = "db.properties";
 	private static final boolean LOAD_FROM_DB = false;
 	private static final boolean OVERWRITE_DUMP = false;
 	private static final String DB_DUMP_FILENAME = "table-data.kvcol";
@@ -41,7 +40,7 @@ public class MetaASTableGenerator {
 
 	private static final String TBL_1 = "normalized_par10_level_0";
 	private static final String TBL_2 = "normalized_par10_level_1";
-	private static final String TBL_3 = "normalized_by_level0_par10_level_1";
+	private static final String TBL_3 = "normalized_by_level_0_par10_level_1";
 
 	private static final int TRIM_ELEMENTS = 2;
 
@@ -54,15 +53,16 @@ public class MetaASTableGenerator {
 
 	private static void loadData() throws SQLException {
 		if (LOAD_FROM_DB) {
-			IDatabaseAdapter adapter = DatabaseAdapterFactory.get((IDatabaseConfig) ConfigFactory.create(IDatabaseConfig.class).loadPropertiesFromFile(new File(DB_CONFIG)));
+			IDatabaseConfig config = (IDatabaseConfig) ConfigFactory.create(IDatabaseConfig.class).loadPropertiesFromFile(new File(DB_CONFIG));
+			IDatabaseAdapter adapter = DatabaseAdapterFactory.get(config);
 			col1 = KVStoreUtil.readFromMySQLQuery(adapter,
-					"SELECT * FROM ((SELECT * FROM normalized_by_level_0_par10_level_1 UNION SELECT * FROM normalized_par10_level_0) as union_table) WHERE approach NOT IN ('sbs', 'oracle', 'sbs_with_feature_costs','l1_sbs', 'l1_oracle', 'l1_sbs_with_feature_costs')",
+					"SELECT * FROM ((SELECT * FROM " + TBL_3 + " UNION SELECT * FROM " + TBL_1 + ") as union_table) WHERE approach NOT IN ('sbs', 'oracle', 'sbs_with_feature_costs','l1_sbs', 'l1_oracle', 'l1_sbs_with_feature_costs')",
 					new HashMap<>());
 			col1.removeAny(new String[] { "sbs", "oracle" }, true);
 			col1 = col1.group("scenario_name", "approach");
 			col1.setCollectionID("DB-Dump-" + new Time(System.currentTimeMillis()));
 
-			col2 = KVStoreUtil.readFromMySQLTable(adapter, TBL_2, new HashMap<>());
+			// col2 = KVStoreUtil.readFromMySQLTable(adapter, TBL_2, new HashMap<>());
 			col2 = KVStoreUtil.readFromMySQLQuery(adapter,
 					"SELECT oracle_and_sbs_table.scenario_name, oracle_and_sbs_table.fold, server_results_meta_level_1.approach, oracle_and_sbs_table.metric, server_results_meta_level_1.result, ((server_results_meta_level_1.result - oracle_and_sbs_table.oracle_result)/(oracle_and_sbs_table.sbs_result -oracle_and_sbs_table.oracle_result)) as n_par10,oracle_and_sbs_table.oracle_result, oracle_and_sbs_table.sbs_result FROM (SELECT oracle_table.scenario_name, oracle_table.fold, oracle_table.metric, oracle_result, sbs_result FROM (SELECT scenario_name, fold, approach, metric, result as oracle_result FROM `server_results_meta_level_1` WHERE approach='oracle') as oracle_table JOIN (SELECT scenario_name, fold, approach, metric, result as sbs_result FROM `server_results_meta_level_1` WHERE approach='sbs_with_feature_costs') as sbs_table ON oracle_table.scenario_name = sbs_table.scenario_name AND oracle_table.fold=sbs_table.fold AND oracle_table.metric = sbs_table.metric) as oracle_and_sbs_table JOIN server_results_meta_level_1 ON oracle_and_sbs_table.scenario_name = server_results_meta_level_1.scenario_name AND oracle_and_sbs_table.fold = server_results_meta_level_1.fold AND oracle_and_sbs_table.metric = server_results_meta_level_1.metric WHERE oracle_and_sbs_table.metric='par10'",
 					new HashMap<>());
@@ -80,8 +80,8 @@ public class MetaASTableGenerator {
 			}
 		} else {
 			try {
-				col1 = new KVStoreCollection(FileUtils.readFileToString(new File(DB_DUMP_FILENAME)));
-				col2 = new KVStoreCollection(FileUtils.readFileToString(new File(DB_DUMP2_FILENAME)));
+				col1 = new KVStoreCollection(FileUtil.readFileAsString(new File(DB_DUMP_FILENAME)));
+				col2 = new KVStoreCollection(FileUtil.readFileAsString(new File(DB_DUMP2_FILENAME)));
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.err.println("Could not load local dump. Exiting.");
@@ -122,7 +122,6 @@ public class MetaASTableGenerator {
 		}
 
 		KVStoreStatisticsUtil.rank(col1, "scenario_name", "approach", "tm_n_par10", "rank");
-		Map<String, DescriptiveStatistics> avgRankCol1 = KVStoreStatisticsUtil.averageRank(col1, "approach", "rank");
 
 		// Win Tie Loss Statistics
 		KVStoreCollection baseApproaches = new KVStoreCollection();
