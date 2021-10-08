@@ -2,6 +2,7 @@ import copy
 import logging
 import numpy as np
 from aslib_scenario.aslib_scenario import ASlibScenario
+import time
 
 logger = logging.getLogger("evaluate_train_test_split")
 logger.addHandler(logging.StreamHandler())
@@ -32,6 +33,8 @@ def evaluate_train_test_split(scenario: ASlibScenario, approach, metrics, fold: 
     performance_data = test_scenario.performance_data.to_numpy()
     feature_cost_data = test_scenario.feature_cost_data.to_numpy() if test_scenario.feature_cost_data is not None else None
 
+    prediciton_times = []
+
     for instance_id in range(0, len(test_scenario.instances)):
 
         #logger.debug("Test instance " + str(instance_id) + "/" + str(len(test_scenario.instances)))
@@ -48,14 +51,22 @@ def evaluate_train_test_split(scenario: ASlibScenario, approach, metrics, fold: 
         for y_element in y_test:
             if y_element < test_scenario.algorithm_cutoff_time:
                 contains_non_censored_value = True
+
         if contains_non_censored_value:
             num_counted_test_values += 1
+            start_time = time.time()
             predicted_scores = approach.predict(X_test, instance_id)
+            end_time = time.time()
+            prediciton_times.append(end_time - start_time)
             for i, metric in enumerate(metrics):
                 runtime = metric.evaluate(y_test, predicted_scores, accumulated_feature_time, scenario.algorithm_cutoff_time)
                 approach_metric_values[i] = (approach_metric_values[i] + runtime)
 
+    with open('times.log', 'a') as file:
+        file.write(f'{approach.get_name()}: {sum(prediciton_times) / len(prediciton_times)}\n')
+
     approach_metric_values = np.true_divide(approach_metric_values, num_counted_test_values)
+
 
     print('PAR10: {0:.10f}'.format(approach_metric_values[0]))
 

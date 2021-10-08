@@ -88,14 +88,14 @@ def plot():
 
     average_performance = np.zeros(max_it)
 
-    fig = plt.figure(1, figsize=(25, 5))
+    fig = plt.figure(1, figsize=(10, 10))
 
     for i, df in enumerate(dfs):
         if df.empty:
             continue
         pos = i
         #ax1 = fig.add_subplot(2, 13, pos + 1)
-        ax1 = fig.add_subplot(1, 4, pos + 1)
+        ax1 = fig.add_subplot(2, 2, pos + 1)
 
         #ax1.axhline(np.average(base_learner.result[i]), color=color1, linestyle='dashed', linewidth=1.4)
         #print(base_learner.scenario_name[i])
@@ -158,7 +158,7 @@ def plot():
             continue
         pos = i
         #ax1 = fig.add_subplot(2, 13, pos + 1)
-        ax1 = fig.add_subplot(1, 4, pos + 3)
+        ax1 = fig.add_subplot(2, 2, pos + 3)
 
         #ax1.axhline(np.average(base_learner.result[i]), color=color1, linestyle='dashed', linewidth=1.4)
         #print(base_learner.scenario_name[i])
@@ -240,4 +240,5 @@ def get_database_credential_string():
 
 
 config = load_configuration()
+plot()
 
