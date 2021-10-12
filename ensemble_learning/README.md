@@ -17,7 +17,7 @@ table = tablename
 ssl = true
 
 [EXPERIMENTS]
-scenarios=ASP-POTASSCO,BNSL-2016,CPMP-2015,CSP-2010,CSP-MZN-2013,CSP-Minizinc-Time-2016,GLUHACK-2018,MAXSAT12-PMS,MAXSAT15-PMS-INDU,QBF-2011,SAT03-16_INDU,SAT12-INDU,SAT18-EXP
+scenarios='ASP-POTASSCO,BNSL-2016,CPMP-2015,CSP-2010,CSP-MZN-2013,CSP-Minizinc-Time-2016,GLUHACK-18,MAXSAT-PMS-2016,MAXSAT-WPMS-2016,MAXSAT12-PMS,MAXSAT15-PMS-INDU,PROTEUS-2014,QBF-2011,QBF-2014,QBF-2016,SAT03-16_INDU,SAT11-HAND,SAT11-INDU,SAT11-RAND,SAT12-ALL,SAT12-HAND,SAT12-INDU,SAT12-RAND,SAT15-INDU,SAT18-EXP
 approaches=sbs,oracle,base_learner,voting,voting_borda,voting_weighting,voting_optimize,bagging-base_learner,bagging_weighting-base_learner,bagging_borda-base_learner,samme,stacking_meta_learner,stacking_feature_selection
 amount_of_training_scenario_instances=-1
 amount_of_cpus=12

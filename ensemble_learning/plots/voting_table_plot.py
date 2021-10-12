@@ -50,17 +50,7 @@ def plot():
     stacking = get_dataframe_for_sql_query(
         "SELECT scenario_name, approach, AVG(n_par10) as result, COUNT(n_par10) as num FROM (SELECT vbs_sbs.scenario_name, vbs_sbs.fold, approach_results.approach, vbs_sbs.metric, approach_results.result, ((approach_results.result - vbs_sbs.oracle_result)/(vbs_sbs.sbs_result -vbs_sbs.oracle_result)) as n_par10,vbs_sbs.oracle_result, vbs_sbs.sbs_result FROM (SELECT oracle_table.scenario_name, oracle_table.fold, oracle_table.metric, oracle_result, sbs_result FROM (SELECT scenario_name, fold, approach, metric, result as oracle_result FROM `vbs_sbs` WHERE approach='oracle') as oracle_table JOIN (SELECT scenario_name, fold, approach, metric, result as sbs_result FROM `vbs_sbs` WHERE approach='sbs') as sbs_table ON oracle_table.scenario_name = sbs_table.scenario_name AND oracle_table.fold=sbs_table.fold AND oracle_table.metric = sbs_table.metric) as vbs_sbs JOIN approach_results ON vbs_sbs.scenario_name = approach_results.scenario_name AND vbs_sbs.fold = approach_results.fold AND vbs_sbs.metric = approach_results.metric WHERE vbs_sbs.metric='par10') as final WHERE metric='par10' AND approach LIKE '%%1_2_3_4_5_6_7%%' AND NOT scenario_name='CSP-Minizinc-Obj-2016' AND approach LIKE '%%stacking_1_2_3_4_5_6_7%%' AND approach NOT LIKE '%%stacking_1_2_3_4_5_6_7%%threshold' GROUP BY scenario_name, approach")
 
-    #print(voting_weighting_full)
-    #print(voting_ranking_full)
-    #print(bagging)
-    #print(bagging_weighting)
-    #print(bagging_ranking)
-    #print(baselines)
-    #print(sunny)
-    #print(multiclass)
-    #print(per_algo)
-    #print(stacking_feature_selection)
-    #print(stacking)
+
     scenario_names = ["ASP-POTASSCO", "BNSL-2016", "CPMP-2015", "CSP-2010", "CSP-MZN-2013", "CSP-Minizinc-Time-2016",
                       "GLUHACK-2018", "MAXSAT12-PMS", "MAXSAT15-PMS-INDU", "QBF-2011", "SAT03-16_INDU", "SAT12-INDU",
                       "SAT18-EXP"]
@@ -245,6 +235,8 @@ def plot():
     table = table[0] + '\midrule \midrule\n Mean' + table[1]
     table = ''.join(table)
     print(table)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        print(bagging_ranking)
 
 
 

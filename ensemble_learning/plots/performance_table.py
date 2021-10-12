@@ -44,21 +44,6 @@ def plot():
     boosting_peralgo_weighting = get_dataframe_for_sql_query(
         "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') AND approach='SAMME_per_algorithm_regressor_20' GROUP BY scenario_name, approach")
 
-    # sunny = get_dataframe_for_sql_query(
-    #    "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') AND approach LIKE 'SAMME_sunny%%' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016')")
-
-    # multiclass = get_dataframe_for_sql_query(
-    #    "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') AND approach LIKE 'SAMME_multiclass_algorithm_selector%%' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016')")
-
-    # per_algo = get_dataframe_for_sql_query(
-    #    "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') AND approach LIKE 'SAMME_per_algorithm_regressor%%' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016')")
-
-    # satzilla = get_dataframe_for_sql_query(
-    #    "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') approach LIKE '%%SAMME_satzilla%%' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016')")
-
-    # isac = get_dataframe_for_sql_query(
-    #    "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') approach LIKE '%%SAMME_isac%%' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016')")
-
     stacking_feature_selection = get_dataframe_for_sql_query(
        "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') AND approach='stacking_1_2_3_4_7SATzilla-11_full_fullvariance_threshold' GROUP BY scenario_name, approach")
     stacking = get_dataframe_for_sql_query(
@@ -69,73 +54,6 @@ def plot():
     oracle = get_dataframe_for_sql_query(
         "SELECT scenario_name, AVG(result) as result, COUNT(result) as num FROM performance_scenarios WHERE metric='performance' AND scenario_name IN ('OPENML-WEKA-2017', 'TTP-2016') AND approach='oracle' GROUP BY scenario_name, approach")
 
-    '''
-    print(per_algorithm_regressor)
-    print(sunny)
-    print(isac)
-    print(satzilla)
-    print(multiclass)
-
-    print(voting_full)
-    print(voting_weighting_full)
-    print(voting_ranking_full)
-    
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None): 
-        # TODO: Find best approaches
-        print(stacking.loc[stacking['approach'] == 'stacking_1_2_3_4_7ISAC_full_full'])
-        print(stacking.loc[stacking['approach'] == 'stacking_1_2_3_4_7SATzilla-11_full_full'])
-        print(stacking.loc[stacking['approach'] == 'stacking_1_2_3_4_7SUNNY_full_full'])
-        print(stacking.loc[stacking['approach'] == 'stacking_1_2_3_4_7multiclass_full_full'])
-        print(stacking.loc[stacking['approach'] == 'stacking_1_2_3_4_7per_algorithm_regressor_full_full'])
-
-        print(stacking_feature_selection.loc[stacking_feature_selection['approach'] == 'stacking_1_2_3_4_7ISAC_full_fullvariance_threshold'])
-        print(stacking_feature_selection.loc[stacking_feature_selection['approach'] == 'stacking_1_2_3_4_7SATzilla-11_full_fullvariance_threshold'])
-        print(stacking_feature_selection.loc[stacking_feature_selection['approach'] == 'stacking_1_2_3_4_7SUNNY_full_fullvariance_threshold'])
-        print(stacking_feature_selection.loc[stacking_feature_selection['approach'] == 'stacking_1_2_3_4_7multiclass_full_fullvariance_threshold'])
-        print(stacking_feature_selection.loc[stacking_feature_selection['approach'] == 'stacking_1_2_3_4_7per_algorithm_regressor_full_fullvariance_threshold'])
-    
-    '''
-    scenario_names = ['OPENML-WEKA-2017', 'TTP-2016']
-    # dfs = [sunny, multiclass, per_algo]
-    dfs = []
-    max_it = 20
-
-    approach_name = ["sunny", "multiclass_algorithm_selector", "per_algorithm_regressor", "satzilla", "isac"]
-    '''boosting_data = []
-    for i, df in enumerate(dfs):
-        if df.empty:
-            continue
-
-        # code by https://stackoverflow.com/questions/23493374/sort-dataframe-index-that-has-a-string-and-number
-        # ----------------------
-        df['indexNumber'] = [int(i.split('_')[-1]) for i in df.approach]
-        df.sort_values(['indexNumber', 'fold'], ascending=[True, True], inplace=True)
-        df.drop('indexNumber', 1, inplace=True)
-
-        # ----------------------
-
-        best_data = {}
-        plot_data = []
-
-        for iter in range(1, max_it + 1):
-            data = []
-            for scenario_name in scenario_names:
-                for fold in range(1, 11):
-                    approach = 'SAMME_%s_%d' % (approach_name[i], iter)
-                    val = df.loc[(df['approach'] == approach) & (df['fold'] == fold) & (
-                            df['scenario_name'] == scenario_name)].result
-
-                    if len(val) == 1:
-                        key = str(fold)
-                        best_data[key] = val.iloc[0]
-                        data.append(best_data[key])
-                    else:
-                        data.append(best_data[str(fold)])
-                if iter == max_it:
-                    plot_data.append(np.average(data))
-
-        boosting_data.append(plot_data)
-    '''
 
     data = [voting_weighting_full,
             voting_ranking_full, bagging_sunny_weighting, bagging_peralgo_ranking, stacking, stacking_feature_selection, boosting_multi_weighting, boosting_peralgo_weighting, per_algorithm_regressor, sunny, isac, satzilla, multiclass, sbs, oracle]
@@ -160,8 +78,7 @@ def plot():
     #result.at['avg rank', 'scenario_name'] = 'Avg. Rank'
     result = result.round(2)
 
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-        print(result)
+
 
     print_latex_table(result)
 
@@ -192,7 +109,7 @@ def print_latex_table(result):
         table[i] = new_line
 
     # find best value
-    for i, minimum in enumerate(result.max(axis=1)):
+    for i, minimum in enumerate(result[['ISAC', 'Multiclass', 'PerAlgo', "SATzilla'11", 'SUNNY', 'sbs', 'Voting wmaj', 'Voting borda', 'Bagging SUNNY', 'Bagging PerAlgo', 'Stacking', 'Stacking VT', 'Boosting Multi', 'Boosting PerAlgo']].max(axis=1)):
         table[i] = table[i] + ' '
         table[i] = table[i].replace(str(minimum) + " ", r'\mathbf{ ' + str(minimum) + ' } ')
         table[i] = table[i].replace('& \mathbf{ ' + str(minimum) + ' }', r'& $\mathbf{ ' + str(minimum) + ' }$')
