@@ -17,13 +17,15 @@ table = tablename
 ssl = true
 
 [EXPERIMENTS]
-scenarios='ASP-POTASSCO,BNSL-2016,CPMP-2015,CSP-2010,CSP-MZN-2013,CSP-Minizinc-Time-2016,GLUHACK-18,MAXSAT-PMS-2016,MAXSAT-WPMS-2016,MAXSAT12-PMS,MAXSAT15-PMS-INDU,PROTEUS-2014,QBF-2011,QBF-2014,QBF-2016,SAT03-16_INDU,SAT11-HAND,SAT11-INDU,SAT11-RAND,SAT12-ALL,SAT12-HAND,SAT12-INDU,SAT12-RAND,SAT15-INDU,SAT18-EXP
+scenarios=ASP-POTASSCO,BNSL-2016,CPMP-2015,CSP-2010,CSP-MZN-2013,CSP-Minizinc-Time-2016,GLUHACK-18,MAXSAT-PMS-2016,MAXSAT-WPMS-2016,MAXSAT12-PMS,MAXSAT15-PMS-INDU,PROTEUS-2014,QBF-2011,QBF-2014,QBF-2016,SAT03-16_INDU,SAT11-HAND,SAT11-INDU,SAT11-RAND,SAT12-ALL,SAT12-HAND,SAT12-INDU,SAT12-RAND,SAT15-INDU,SAT18-EXP
 approaches=sbs,oracle,base_learner,voting,voting_borda,voting_weighting,voting_optimize,bagging-base_learner,bagging_weighting-base_learner,bagging_borda-base_learner,samme,stacking_meta_learner,stacking_feature_selection
 amount_of_training_scenario_instances=-1
 amount_of_cpus=12
 tune_hyperparameters=0
 train_status=standard
 ```
+
+Note: In order to run the two scenarios that are evaluated based on the performance, you just need to change the scenarios in the configuration to `OPENML-WEKA-2017, TTP-2016`. The metric will then automatically be changed to `performance`.
 
 You have to adapt all entries below the `[DATABASE]` tag according to your database server setup. The entries have the following meaning:
 * `host`: the address of your database server

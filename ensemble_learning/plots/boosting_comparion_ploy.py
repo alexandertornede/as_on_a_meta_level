@@ -172,5 +172,4 @@ def get_database_credential_string():
 
 
 config = load_configuration()
-plot()
 
