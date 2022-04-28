@@ -7,8 +7,8 @@ Please cite this work as
 @inproceedings{tornede2021as_on_meta_level,
   title={Algorithm Selection on a Meta Level},
   author={Tornede, Alexander and Gehring, Lukas and Tornede, Tanja and Wever, Marcel and H{\"u}llermeier, Eyke},
-  booktitle={??},
-  year={2021}
+  booktitle={Machine Learning},
+  year={2022}
 }
 ```
 
