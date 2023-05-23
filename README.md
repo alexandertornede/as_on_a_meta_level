@@ -5,10 +5,14 @@ This repository holds the code for our paper "Algorithm Selection on a Meta Leve
 Please cite this work as
 ```
 @inproceedings{tornede2021as_on_meta_level,
-  title={Algorithm Selection on a Meta Level},
-  author={Tornede, Alexander and Gehring, Lukas and Tornede, Tanja and Wever, Marcel and H{\"u}llermeier, Eyke},
-  booktitle={Machine Learning},
-  year={2022}
+  title        = {Algorithm Selection on a Meta Level},
+  author       = {Tornede, Alexander and Gehring, Lukas and Tornede, Tanja and Wever, Marcel and H{\"u}llermeier, Eyke},
+  title        = {Algorithm selection on a meta level},
+  journal      = {Mach. Learn.},
+  volume       = {112},
+  number       = {4},
+  pages        = {1253--1286},
+  year         = {2023}
 }
 ```
 
